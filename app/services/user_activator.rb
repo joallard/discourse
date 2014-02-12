@@ -13,6 +13,7 @@ class UserActivator
 
   def start
     register_nickname
+    set_locale
   end
 
   def finish
@@ -39,6 +40,10 @@ class UserActivator
     if user.valid? && @settings.call_discourse_hub?
       @hub.register_nickname(user.username, user.email)
     end
+  end
+
+  def set_locale
+    @user.locale = I18n.locale
   end
 end
 
