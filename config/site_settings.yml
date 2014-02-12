@@ -377,6 +377,8 @@ legal:
     default: false
 
 uncategorized:
+  domain_locales:
+    default: ''
 
   faq_url:
     client: true

@@ -4,6 +4,7 @@ require_dependency 'discourse'
 require_dependency 'custom_renderer'
 require_dependency 'archetype'
 require_dependency 'rate_limiter'
+require_dependency 'domain_locale'
 
 class ApplicationController < ActionController::Base
   include CurrentUser
@@ -101,6 +102,8 @@ class ApplicationController < ActionController::Base
   def set_locale
     I18n.locale = if SiteSetting.allow_user_locale && current_user && current_user.locale.present?
                     current_user.locale
+                  elsif locale = DomainLocale.for(request.domain)
+                    locale
                   else
                     SiteSetting.default_locale
                   end
